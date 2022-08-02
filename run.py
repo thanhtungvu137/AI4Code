@@ -34,6 +34,14 @@ from transformers import (WEIGHTS_NAME, AdamW, get_linear_schedule_with_warmup,
                               RobertaConfig, RobertaModel, RobertaTokenizer)
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
+                    datefmt='%m/%d/%Y %H:%M:%S',level=logging.INFO )
+
+fileHandler = logging.FileHandler("log.txt")
+logger.addHandler(fileHandler)
+
+consoleHandler = logging.StreamHandler()
+logger.addHandler(consoleHandler)
 
 
 class InputFeatures(object):
@@ -300,8 +308,7 @@ def main():
     #print arguments
     args = parser.parse_args()
     #set log
-    logging.basicConfig(filename="log.txt",format='%(asctime)s - %(levelname)s - %(name)s -   %(message)s',
-                    datefmt='%m/%d/%Y %H:%M:%S',level=logging.INFO )
+
     #set device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     args.n_gpu = torch.cuda.device_count()
