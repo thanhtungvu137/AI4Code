@@ -55,14 +55,14 @@ class InputFeatures(object):
         
 def convert_examples_to_features(js,tokenizer,args):
     """convert examples to token ids"""
-    code = ' '.join(js['code_tokens']) if type(js['code_tokens']) is list else ' '.join(js['code_tokens'].split())
+    #code = ' '.join(js['code_tokens']) if type(js['code_tokens']) is list else ' '.join(js['code_tokens'].split())
     code_tokens = tokenizer.tokenize(code)[:args.code_length-4]
     code_tokens =[tokenizer.cls_token,"<encoder-only>",tokenizer.sep_token]+code_tokens+[tokenizer.sep_token]
     code_ids = tokenizer.convert_tokens_to_ids(code_tokens)
     padding_length = args.code_length - len(code_ids)
     code_ids += [tokenizer.pad_token_id]*padding_length
     
-    nl = ' '.join(js['docstring_tokens']) if type(js['docstring_tokens']) is list else ' '.join(js['doc'].split())
+    #nl = ' '.join(js['docstring_tokens']) if type(js['docstring_tokens']) is list else ' '.join(js['doc'].split())
     nl_tokens = tokenizer.tokenize(nl)[:args.nl_length-4]
     nl_tokens = [tokenizer.cls_token,"<encoder-only>",tokenizer.sep_token]+nl_tokens+[tokenizer.sep_token]
     nl_ids = tokenizer.convert_tokens_to_ids(nl_tokens)
